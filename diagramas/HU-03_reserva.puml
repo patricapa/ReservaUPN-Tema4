@@ -1,0 +1,23 @@
+@startuml HU-03_reserva
+title HU-03 - Reservar un cubiculo (flujo del estudiante)
+start
+:Estudiante selecciona cubiculo y franja;
+if (Franja dentro de 08:00-21:00?) then (si)
+  if (Cubiculo libre en la franja?) then (si)
+    if (Excede 2 h/dia? (HU-11)) then (no)
+      :Crear reserva "Confirmada";
+      :Enviar correo de confirmacion (HU-04);
+      stop
+    else (si)
+      :Mostrar "Superas el limite de 2 horas por dia";
+      stop
+    endif
+  else (no)
+    :Mostrar "El cubiculo ya no esta disponible";
+    stop
+  endif
+else (no)
+  :Mostrar "El horario de atencion es de 08:00 a 21:00";
+  stop
+endif
+@enduml
